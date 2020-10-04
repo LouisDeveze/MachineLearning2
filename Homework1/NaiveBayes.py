@@ -36,7 +36,7 @@ def create_word_dictionary(messages):
         
         w = message.split()
         for word in w:
-            # Adding only word composed of alphanumerical chars and a length > 1
+            # Adding only word with a length > 1
             if word != "spam" and word != "ham" and len(word) > 1:
                 words.append(word)
     # Create the dictionnary out of the words

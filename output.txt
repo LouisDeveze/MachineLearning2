@@ -1,0 +1,18 @@
+Confusion Matrix for Test set with 1000 samples
+Set with a size of  1000
+Global accuracy  75.2 %
+True positive  12.3 %
+True negative  62.9 %
+False positive  24.5 %
+False negative  0.3 %
+
+
+Confusion Matrix for Training set with 4000 samples
+Set with a size of  3999
+Global accuracy  75.64391097774444 %
+True positive  13.453363340835208 %
+True negative  62.19054763690923 %
+False positive  24.15603900975244 %
+False negative  0.2000500125031258 %
+
+

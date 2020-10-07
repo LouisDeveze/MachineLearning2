@@ -308,8 +308,6 @@ train_predicted = predict(spam_model, ham_model, word_model, dictionary, train)
 
 print("Confusion Matrix for Train" , end =" " )
 confusion_matrix(train_predicted, labels)
-<<<<<<< Updated upstream
-=======
 
 # VIII - Discuss your results.
 # We provided the output of our homework into the Output.txt
@@ -325,6 +323,3 @@ confusion_matrix(train_predicted, labels)
 # Otherwise, many low frequent words appear in it. It appears to have a negative impact on the score
 
 # Finally we tried to add the Laplacian smoothing when training the model, which stabilizes the accurracy around 85.3 Percent
-
-
->>>>>>> Stashed changes

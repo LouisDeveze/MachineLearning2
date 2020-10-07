@@ -21,8 +21,9 @@ import numpy
 
 # --------------------
 # Constants definitions
-tr_ratio = 0.8
+tr_ratio = 0.75
 word_amount = 2000
+alpha = 2
 
 # --------------------
 # Function definitions
@@ -103,9 +104,10 @@ def train_spam_vector(labels, features):
             for col in range(0, word_amount):
                 word_spam_probabilities[col] += features[row, col]
 
-    # Divide the occurences by the amount of spam
+    # Divide the occurences by the amount of spam + Laplacian smoothing
     for col in range(0, word_amount):  
-        word_spam_probabilities[col] /= spam_count
+        word_spam_probabilities[col] += 1
+        word_spam_probabilities[col] /= (spam_count +  (2 * alpha))
 
     
     print("Training sample has ", spam_count, " SPAMs")
@@ -129,9 +131,10 @@ def train_ham_vector(labels, features):
             for col in range(0, word_amount):    
                 word_ham_probabilities[col] += features[row, col]
 
-    # Divide the occurences by the amount of ham
+    # Divide the occurences by the amount of ham  + Laplacian smoothing
     for col in range(0, word_amount):  
-        word_ham_probabilities[col] /= ham_count
+        word_ham_probabilities[col] += alpha
+        word_ham_probabilities[col] /= (ham_count + (2 * alpha))
 
     
     print("Training sample has ", ham_count, " HAMs")
@@ -157,6 +160,7 @@ def train_word_prob(labels, features):
 
     return word_prob
 
+# Useful function to create a confusion matrix using the real output
 def confusion_matrix(predicted, current):
 
     amount = len(predicted)
@@ -215,6 +219,7 @@ def predict(spam_model, ham_model, word_model, dictionary, messages):
         
         # Now that spam proba and ham_proba are computed calculate output prediction
         spam = spam_proba.sum()
+        spam = spam
         ham = ham_proba.sum()
         if spam > ham:
             output[row] = 1
@@ -225,7 +230,8 @@ def predict(spam_model, ham_model, word_model, dictionary, messages):
 
 
 # --------------------
-# Data Loading
+# I - Data Loading
+# Divide the data in two groups: training and test examples.
 
 # Getting the number of messages
 messages_number = len(open('messages.txt').readlines())
@@ -252,6 +258,10 @@ print('Training Set Amount: ', len(train), '  | Test Set Amount: ', len(test))
 
 #------------------
 # Data Model Creation
+# II - Parse both the training and test examples to generate both the spam and ham data sets.
+# III - Generate a dictionary from the training data.
+# IV - Extract features from both the training data and test data.
+
 
 # create the dictionary of features
 dictionary = create_word_dictionary(train)
@@ -277,13 +287,16 @@ word_model = train_word_prob(labels, features)
 
 #------------------
 # Model Prediction on Test Set
+# V - Implement the Naive Bayes from scratch, ﬁt the respective models to the training data
 
 # create the test label vector
 test_labels = create_label_vector(test)
 
+# VI - Make predictions for the test data.
 # Calculate for each message a predicted output for spam on test Set
 test_predicted = predict(spam_model, ham_model, word_model, dictionary, test)
 
+# VII - Measure the spam-ﬁltering performance for each approach through the confusion matrix.
 print("\nConfusion Matrix for Test" , end =" " )
 confusion_matrix(test_predicted, test_labels)
 
@@ -295,3 +308,23 @@ train_predicted = predict(spam_model, ham_model, word_model, dictionary, train)
 
 print("Confusion Matrix for Train" , end =" " )
 confusion_matrix(train_predicted, labels)
+<<<<<<< Updated upstream
+=======
+
+# VIII - Discuss your results.
+# We provided the output of our homework into the Output.txt
+
+# After few tweeks among the parameters and few modifications on the code parsing the data,
+# We reached a pretty good accuracy result of 83,6 % (test set) and 84.4 % (train set).
+# We noticed that the False positive ratio is pretty high on our model, compared to the
+# false negative ratio which is less than 1%. At first, False Positive was about 25% percent 
+# of the global output. We reduced it below 15% by allowing words with numerical values,
+#  which often appear in some spams when we looked into the dataset. 
+
+# On the second hand we noticed that the dictionnary is more efficient with a size around 2000 - 2500 words
+# Otherwise, many low frequent words appear in it. It appears to have a negative impact on the score
+
+# Finally we tried to add the Laplacian smoothing when training the model, which stabilizes the accurracy around 85.3 Percent
+
+
+>>>>>>> Stashed changes

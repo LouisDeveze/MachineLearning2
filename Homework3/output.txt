@@ -1,0 +1,62 @@
+Machine Learning 2 Homework 3
+By Kutlu Toren & Louis Deveze
+Implementation of Hidden Markov Model
+
+for t = 1
+Z0(t) = 0.0
+Z1(t) = 0.09
+Z2(t) = 0.01
+Z3(t) = 0.2
+
+for t = 2
+Z0(t) = 0.0
+Z1(t) = 0.0052
+Z2(t) = 0.0217
+Z3(t) = 0.0057
+
+for t = 3
+Z0(t) = 0.0
+Z1(t) = 0.005192
+Z2(t) = 0.000543
+Z3(t) = 0.000964
+
+for t = 4
+Z0(t) = 0.0018218
+Z1(t) = 0.0
+Z2(t) = 0.0
+Z3(t) = 0.0
+Resulting state time matrix for the example is: 
+ [[ 0.         0.         0.         0.         0.0018218]
+ [ 1.         0.09       0.0052     0.005192   0.       ]
+ [ 0.         0.01       0.0217     0.000543   0.       ]
+ [ 0.         0.2        0.0057     0.000964   0.       ]] 
+
+ P(x|M) = 0.0018218
+
+Argmaxj'X0(t) = 1 at index 1
+
+Z0(t) = 0.0
+Z1(t) = 0.09
+Z2(t) = 0.01
+Z3(t) = 0.2
+Argmaxj'X1(t) = 0.2 at index 3
+
+Z0(t) = 0.0
+Z1(t) = 0.0052
+Z2(t) = 0.0217
+Z3(t) = 0.0057
+Argmaxj'X2(t) = 0.0217 at index 2
+
+Z0(t) = 0.0
+Z1(t) = 0.005192
+Z2(t) = 0.000543
+Z3(t) = 0.000964
+Argmaxj'X3(t) = 0.005192 at index 1
+
+Z0(t) = 0.0018218
+Z1(t) = 0.0
+Z2(t) = 0.0
+Z3(t) = 0.0
+Argmaxj'X4(t) = 0.0018218 at index 0
+
+The path is:  Z1  Z3  Z2  Z1  Z0  
